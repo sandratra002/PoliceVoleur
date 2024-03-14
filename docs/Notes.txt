@@ -1,0 +1,3 @@
+Entity : Cops/Thief, Position
+Position : Node, List[Position] neighbors
+Board : List[Position], List[Entity]

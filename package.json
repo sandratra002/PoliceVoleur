@@ -1,0 +1,16 @@
+{
+  "name": "policevoleur",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch assets/scss/index.scss assets/css/index.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.71.1"
+  },
+  "devDependencies": {},
+  "description": ""
+}
