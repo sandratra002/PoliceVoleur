@@ -69,6 +69,8 @@
         }
         &.active {
             box-shadow: 0 0 10px $police;
+            cursor: pointer;
+            pointer-events: all;
         }
 
     }
@@ -104,6 +106,8 @@
             border-color: $active;
             background: $active;
             box-shadow: 0 0 10px $active;
+            cursor: pointer;
+            pointer-events: all;
         }
     }
     

@@ -81,6 +81,8 @@ body {
 }
 .board .entity.active {
   box-shadow: 0 0 10px rgb(15, 125, 250);
+  cursor: pointer;
+  pointer-events: all;
 }
 
 .section {
@@ -117,6 +119,8 @@ body {
   border-color: rgb(28, 209, 28);
   background: rgb(28, 209, 28);
   box-shadow: 0 0 10px rgb(28, 209, 28);
+  cursor: pointer;
+  pointer-events: all;
 }
 
 .north .section__north {
