@@ -11,9 +11,10 @@
 }
 
 .board {
-    @include circle(500px, $border-bold);
+    @include circle(40%, $border-bold);
     @include center-items();
 
+    padding: 2rem;
     position: relative;
     overflow: hidden;
 
@@ -59,7 +60,7 @@
     position: relative;
 
     div {
-        @include circle(15px, $border-bold);
+        @include circle(13%, $border-bold);
         position: absolute;
         background: $black;
         &.section__north {

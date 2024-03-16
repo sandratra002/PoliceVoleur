@@ -20,12 +20,13 @@ body {
 }
 
 .board {
-  width: 500px;
+  width: 40%;
   border: 3px solid #242323;
   border-radius: 50%;
   aspect-ratio: 1/1;
   display: grid;
   place-items: center;
+  padding: 2rem;
   position: relative;
   overflow: hidden;
 }
@@ -67,7 +68,7 @@ body {
   position: relative;
 }
 .section div {
-  width: 15px;
+  width: 13%;
   border: 3px solid #242323;
   border-radius: 50%;
   aspect-ratio: 1/1;
