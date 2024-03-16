@@ -4,14 +4,15 @@
 
 .wrapper {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
 
     display: grid;
     place-items: center;
+    position: relative;
 }
 
 .board {
-    @include circle(40%, $border-bold);
+    @include circle(35%, $border-bold);
     @include center-items();
 
     padding: 2rem;
@@ -34,7 +35,7 @@
     }
 
     &__section {
-        @include circle(24%, $border-bold);
+        @include circle(25%, $border-bold);
         position: absolute;
 
         &.north {
@@ -50,6 +51,27 @@
             right: $section-inset;
         }
     }
+
+    .entity {
+        @include circle(25px, $border-bold);
+        position: absolute;
+        z-index: 5;
+
+        background: $police ;
+        border-color: $police;
+
+        &.thief {
+            background: $thief;
+            border-color: $thief;
+            &.active {
+                box-shadow: 0 0 10px $thief;
+            }
+        }
+        &.active {
+            box-shadow: 0 0 10px $police;
+        }
+
+    }
 }
 
 .section {
@@ -62,9 +84,12 @@
     div {
         @include circle(13%, $border-bold);
         position: absolute;
+        z-index: 3 ;
+        
         background: $black;
+        color: white;
         &.section__north {
-            top: -5%;   
+            top: -8%;   
         }
         &.section__south {
             bottom : -5%;
@@ -74,6 +99,11 @@
         }
         &.section__west {
             right : -5%
+        }
+        &.active {
+            border-color: $active;
+            background: $active;
+            box-shadow: 0 0 10px $active;
         }
     }
     

@@ -9,51 +9,59 @@
 </head>
 <body>
     <div class="wrapper">
-        <div class="board">
+        <div class="board" id="board">
+            <div class="entities">
+                <div class="entity police"></div>
+                <div class="entity police"></div>
+                <div class="entity police"></div>
+                <div class="entity thief active"></div>
+            </div>
+
             <div class="board__section center">
                 <div class="section">
-                    <div class="section__center"></div>
-                    <div class="section__north"></div>
-                    <div class="section__south"></div>
-                    <div class="section__east"></div>
-                    <div class="section__west"></div>
+                    <div class="section__center" id="position_0"></div>
+                    <div class="section__north" id="position_1"></div>
+                    <div class="section__south" id="position_2"></div>
+                    <div class="section__east"  id="position_3"></div>
+                    <div class="section__west"  id="position_4"></div>
                 </div>
             </div>
             <div class="board__section north">
                 <div class="section">
-                    <div class="section__north"></div>
-                    <div class="section__south"></div>
-                    <div class="section__east"></div>
-                    <div class="section__west"></div>
+                    <div class="section__north" id="position_5"></div>
+                    <div class="section__south" id="position_6"></div>
+                    <div class="section__east" id="position_7"></div>
+                    <div class="section__west" id="position_8"></div>
                 </div>
             </div>
             <div class="board__section south">
                 <div class="section">
-                    <div class="section__north"></div>
-                    <div class="section__south"></div>
-                    <div class="section__east"></div>
-                    <div class="section__west"></div>
+                    <div class="section__north" id="position_9"></div>
+                    <div class="section__south" id="position_10"></div>
+                    <div class="section__east" id="position_11"></div>
+                    <div class="section__west" id="position_12"></div>
                 </div>
             </div>
             <div class="board__section east">
                 <div class="section">
-                    <div class="section__north"></div>
-                    <div class="section__south"></div>
-                    <div class="section__east"></div>
-                    <div class="section__west"></div>
+                    <div class="section__north" id="position_13"></div>
+                    <div class="section__south" id="position_14"></div>
+                    <div class="section__east" id="position_15"></div>
+                    <div class="section__west" id="position_16"></div>
                 </div>
             </div>
             <div class="board__section west">
                 <div class="section">
-                    <div class="section__north"></div>
-                    <div class="section__south"></div>
-                    <div class="section__east"></div>
-                    <div class="section__west"></div>
+                    <div class="section__north" id="position_17"></div>
+                    <div class="section__south" id="position_18"></div>
+                    <div class="section__east" id="position_19"></div>
+                    <div class="section__west" id="position_20"></div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="./assets/js/entity.js"></script>
     <script src="./assets/js/index.js"></script>
 </body>
 </html>
