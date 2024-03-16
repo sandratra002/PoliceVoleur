@@ -1,3 +1,106 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  width: 100%;
+  height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.board {
+  width: 500px;
+  border: 3px solid #242323;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.board::before, .board::after {
+  content: "";
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  background: #242323;
+}
+.board::after {
+  transform: rotate(90deg);
+}
+.board__section {
+  width: 24%;
+  border: 3px solid #242323;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  position: absolute;
+}
+.board__section.north {
+  top: -10%;
+}
+.board__section.south {
+  bottom: -10%;
+}
+.board__section.east {
+  left: -10%;
+}
+.board__section.west {
+  right: -10%;
+}
+
+.section {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.section div {
+  width: 15px;
+  border: 3px solid #242323;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  position: absolute;
+  background: #242323;
+}
+.section div.section__north {
+  top: -5%;
+}
+.section div.section__south {
+  bottom: -5%;
+}
+.section div.section__east {
+  left: -5%;
+}
+.section div.section__west {
+  right: -5%;
+}
+
+.north .section__north {
+  top: 40% !important;
+}
+
+.south .section__south {
+  bottom: 40% !important;
+}
+
+.east .section__east {
+  left: 40% !important;
+}
+
+.west .section__west {
+  right: 40% !important;
+}
 
 /*# sourceMappingURL=index.css.map */

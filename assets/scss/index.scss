@@ -1,0 +1,95 @@
+@import "color";
+@import "mixins";
+@import "reset";
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    place-items: center;
+}
+
+.board {
+    @include circle(500px, $border-bold);
+    @include center-items();
+
+    position: relative;
+    overflow: hidden;
+
+    &::before,
+    &::after {
+        content: '';
+
+        width: 100%;
+        height: 3px;
+        position: absolute;
+
+        background: $black;
+    }
+
+    &::after {
+        transform: rotate(90deg);
+    }
+
+    &__section {
+        @include circle(24%, $border-bold);
+        position: absolute;
+
+        &.north {
+            top: $section-inset;
+        }
+        &.south {
+            bottom: $section-inset;
+        }
+        &.east {
+            left: $section-inset;
+        }
+        &.west {
+            right: $section-inset;
+        }
+    }
+}
+
+.section {
+    width: 100%;
+    height: 100%;
+
+    @include center-items();
+    position: relative;
+
+    div {
+        @include circle(15px, $border-bold);
+        position: absolute;
+        background: $black;
+        &.section__north {
+            top: -5%;   
+        }
+        &.section__south {
+            bottom : -5%;
+        }
+        &.section__east {
+            left : -5%;
+        }
+        &.section__west {
+            right : -5%
+        }
+    }
+    
+}
+
+.north .section__north {
+    top: 40% !important;
+}
+
+.south .section__south {
+    bottom: 40% !important;
+}
+
+.east .section__east {
+    left: 40% !important;
+}
+
+.west .section__west {
+    right: 40% !important;
+}

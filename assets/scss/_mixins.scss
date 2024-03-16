@@ -1,0 +1,11 @@
+@mixin circle($width, $border) {
+    width: $width;
+    border : $border;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+}   
+
+@mixin center-items() {
+    display: grid;
+    place-items: center;
+}
