@@ -191,6 +191,23 @@ class Entity {
   }
 }
 
+const getBestMove = (state = new State(), depth = 40, isMaximizing = true) => {
+  let point = state.calculatePoint();
+  if (point == 20 || point == -20 || depth == 0) {
+    return point;
+  }
+
+  let bestPoint;
+  let bestMove;
+
+  if (isMaximizing) {
+    bestPoint = -Infinity;
+    for (const police of state.getPolices()) {
+      
+    }
+  }
+};
+
 class State {
   constructor(entities = [new Entity()], positions = [new Position()]) {
     this.entities = entities;
@@ -201,6 +218,10 @@ class State {
 
   getThief () {
     return this.entities[0];
+  }
+
+  getPolices () {
+    return this.entities.filter((entity) => entity.type == "p");
   }
 
   //TODO: calculating current point for police and thief(method)
