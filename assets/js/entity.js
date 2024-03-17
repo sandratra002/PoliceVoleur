@@ -24,7 +24,7 @@ const removeElementListeners = (element, elements,id) => {
     elements[id] = newElement; 
 }
 
-let policeWinningConditions = [5, 10, 15, 20];
+let policeWinningConditions = [5, 7, 8, 10, 11, 12, 13, 14, 15, 17, 18, 20];
 let thiefWinningConditions = [0];
 
 // const removeEntityListeners = (element, id) => {
@@ -36,7 +36,7 @@ let thiefWinningConditions = [0];
 document.addEventListener("DOMContentLoaded", () =>{
     for (let i = 0; i < 21; i++) {
         let position = document.getElementById(`position_${i}`);
-        position.innerHTML = i;
+        // position.innerHTML = i;
         positions.push(position);
     }
     move(thiefNode, positions[0]);

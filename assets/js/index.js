@@ -174,7 +174,6 @@ class Entity {
       for (const conditionId of policeWinningConditions) {
         let position = state.positions[conditionId];
         let possibleWays = position.getPossibleWays(state.positions);
-        console.log(possibleWays);
         if (possibleWays.length == 0 && position.element != null && position.element.type == "t") {
           isWinning = true;
           break;
@@ -192,6 +191,8 @@ class State {
     this.currentPlayer = null;
     this.mouvement = 0;
   }
+
+  //TODO: calculating current point for police and thief(method)
 
   checkWinning (entity) {
     if (entity.isWinning(this)) {
