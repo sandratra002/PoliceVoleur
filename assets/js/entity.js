@@ -18,6 +18,18 @@ const move = (element, destination)=> {
     element.style.left =  (rect.left - boardRect.left - (elementRect.width/3)) + "px";
 }
 
+const removeElementListeners = (element, elements,id) => {
+    const newElement = element.cloneNode(true);
+    element.parentNode.replaceChild(newElement, element);   
+    positions[id] = newElement; 
+}
+
+// const removeEntityListeners = (element, id) => {
+//     const newElement = element.cloneNode(true);
+//     element.parentNode.replaceChild(newElement, element);   
+//     entitiesNode[id] = newElement; 
+// }
+
 document.addEventListener("DOMContentLoaded", () =>{
     for (let i = 0; i < 21; i++) {
         let position = document.getElementById(`position_${i}`);

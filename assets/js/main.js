@@ -34,6 +34,6 @@ window.onload = () => {
     ];
 
     let state = new State(entities, graph);
-
-    graph[0].activatePossibleWay(state);
+    thief.activate(state);
+    // Entity.policeListener(state);
 };

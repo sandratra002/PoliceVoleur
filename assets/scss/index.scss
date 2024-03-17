@@ -60,6 +60,8 @@
         background: $police ;
         border-color: $police;
 
+        // pointer-events: none;
+
         &.thief {
             background: $thief;
             border-color: $thief;
@@ -90,6 +92,8 @@
         
         background: $black;
         color: white;
+
+        pointer-events: none;
         &.section__north {
             top: -8%;   
         }
