@@ -36,7 +36,7 @@ let thiefWinningConditions = [0];
 document.addEventListener("DOMContentLoaded", () =>{
     for (let i = 0; i < 21; i++) {
         let position = document.getElementById(`position_${i}`);
-        // position.innerHTML = i;
+        position.innerHTML = i;
         positions.push(position);
     }
     move(thiefNode, positions[0]);

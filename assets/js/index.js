@@ -1,4 +1,33 @@
 class Position {
+  //AI Algo
+  //TODO: getWaysTo(Destinatio) : Done, getShortestWayTo(destination)
+  getWaysTo (targetId, graph) {
+    let queue = [[this.id]];
+    let allPaths = [];
+    let visited = [];
+
+    while (queue.length > 0) {
+      let currentPath = queue.shift();
+      let lastElement = currentPath[currentPath.length - 1];
+
+      if (lastElement == targetId) {
+        allPaths.push(currentPath) ;
+      } else {
+        if (!visited.includes(lastElement)) {
+          visited.push(lastElement);
+          for (const neighbor of graph[lastElement].neighbors) {
+            let path = currentPath.concat(neighbor);
+            queue.push(path);
+          }
+        }
+      }
+    }
+
+    return allPaths;
+  }
+ 
+  //Done
+
   static disablePositions(state) {
     state.positions.forEach((position) => {
       position.desactivate();
