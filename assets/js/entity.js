@@ -37,33 +37,6 @@ let lastLayer = [5, 7, 8, 10, 11, 12, 13, 14, 15, 17, 18, 20];
 //     entitiesNode[id] = newElement; 
 // }
 
-const cloneObject = (obj) => {
-    if (obj === null || typeof obj !== "object") {
-        return obj;
-      }
-    
-      // Check if the object is of type State
-      if (obj instanceof State) {
-        const entities = cloneObject(obj.entities);
-        const graph = obj.positions.map(position => cloneObject(position));
-        return new State(entities, graph);
-      }
-       let newObj;
-      if (obj instanceof Entity){
-        newObj = new Entity();
-      } else if (obj instanceof Position) {
-        newObj = new Position();
-      } else {
-        newObj = [];    
-      }
-    
-      for (const key in obj) {
-        newObj[key] = cloneObject(obj[key]);
-      }
-    
-      return newObj;
-}
-
 document.addEventListener("DOMContentLoaded", () =>{
     for (let i = 0; i < 21; i++) {
         let position = document.getElementById(`position_${i}`);

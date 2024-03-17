@@ -39,6 +39,7 @@ window.onload = () => {
     ];
 
     let state = new State(entities, graph);
+    state.currentPlayer = thief;
     thief.activate(state);
     // console.log(graph[10].getShortestPathTo(0, state.positions));
     // Entity.policeListener(state);
