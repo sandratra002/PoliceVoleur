@@ -1,18 +1,18 @@
 class Position {
   //AI Algo
   //TODO: getWaysTo(Destinatio) : Done, getShortestWayTo(destination)
-  getShortestPathTo (targetId, graph) {
+  getShortestPathTo(targetId, graph) {
     let allPaths = this.getPathsTo(targetId, graph);
     let pathLengths = allPaths.map((path) => path.length);
     let result = allPaths[pathLengths.indexOf(Math.min(...pathLengths))];
-    if (result){
-      return result; 
+    if (result) {
+      return result;
     } else {
       return [];
     }
   }
 
-  getPathsTo (targetId, graph) {
+  getPathsTo(targetId, graph) {
     let queue = [[this.id]];
     let allPaths = [];
     let visited = [];
@@ -22,9 +22,12 @@ class Position {
       let lastElement = currentPath[currentPath.length - 1];
 
       if (lastElement == targetId) {
-        allPaths.push(currentPath) ;
+        allPaths.push(currentPath);
       } else {
-        if (!visited.includes(lastElement) && graph[lastElement].element == null) {
+        if (
+          !visited.includes(lastElement) &&
+          graph[lastElement].element == null
+        ) {
           visited.push(lastElement);
           for (const neighbor of graph[lastElement].neighbors) {
             let path = currentPath.concat(neighbor);
@@ -36,7 +39,7 @@ class Position {
 
     return allPaths;
   }
- 
+
   //Done
 
   static disablePositions(state) {
@@ -87,7 +90,7 @@ class Position {
     // positions[this.id].removeEventListener("click", this.moveElement);
   }
 
-  constructor(id, neighbors = [], element = null) {
+  constructor(id, neighbors = [-1], element = null) {
     this.id = id;
     this.element = element;
     this.neighbors = neighbors;
@@ -95,7 +98,7 @@ class Position {
 }
 
 class Entity {
-  constructor(id, type) {
+  constructor(id = -1, type = "t") {
     this.id = id;
     this.type = type;
   }
@@ -131,9 +134,9 @@ class Entity {
     finalPositionObj.element = this;
     // console.log("Is Winning :" + this.isWinning(state));
     // if (this.isWinning(state)) {
-      
+
     // } else {
-      state.updateEntity(this);
+    state.updateEntity(this);
     // }
   }
 
@@ -174,7 +177,11 @@ class Entity {
       for (const conditionId of policeWinningConditions) {
         let position = state.positions[conditionId];
         let possibleWays = position.getPossibleWays(state.positions);
-        if (possibleWays.length == 0 && position.element != null && position.element.type == "t") {
+        if (
+          possibleWays.length == 0 &&
+          position.element != null &&
+          position.element.type == "t"
+        ) {
           isWinning = true;
           break;
         }
@@ -192,9 +199,45 @@ class State {
     this.mouvement = 0;
   }
 
-  //TODO: calculating current point for police and thief(method)
+  getThief () {
+    return this.entities[0];
+  }
 
-  checkWinning (entity) {
+  //TODO: calculating current point for police and thief(method)
+  calculateThiefPoint () {
+    if (this.currentPlayer.isWinning(this)) {
+      return -20;
+    }
+    let position = this.currentPlayer.getPosition(this);
+    let shortestPath = position.getShortestPathTo(0, this.positions);
+    if (shortestPath.length > 0){
+      if (shortestPath.length > 5) return -5;
+      else if (shortestPath.length < 5 && shortestPath.length > 2) return -10;
+      else return -15;
+    } else {
+      if (firstLayer.includes(position.id)) return -15;
+      else if (firstLayer.includes(position.id)) return -10;
+      else return -5;
+    }
+  }
+
+  calculatePoint() {
+    if (this.currentPlayer.type == "t") {
+      return this.calculateThiefPoint();
+    } else {
+      if (this.currentPlayer.isWinning(this)) {
+        return 20;
+      }
+      let thief = this.getThief();
+      let thiefPosition = thief.getPosition(this);
+      let pathToCenter = thiefPosition.getPathsTo(0, this.positions);
+      if (pathToCenter) {
+        
+      }
+    }
+  }
+
+  checkWinning(entity) {
     if (entity.isWinning(this)) {
       let message = "Thief wins";
       if (entity.type != "t") message = "Polices win";
@@ -206,7 +249,7 @@ class State {
   }
 
   updateEntity(entity) {
-    if (this.mouvement > 1){
+    if (this.mouvement > 1) {
       let bool = this.checkWinning(entity);
       if (bool) {
         Entity.disableEntities(this);

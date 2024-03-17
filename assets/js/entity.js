@@ -27,11 +27,42 @@ const removeElementListeners = (element, elements,id) => {
 let policeWinningConditions = [5, 7, 8, 10, 11, 12, 13, 14, 15, 17, 18, 20];
 let thiefWinningConditions = [0];
 
+let firstLayer = [1, 2, 3, 4];
+let secondLayer = [6, 10, 16, 19];
+let lastLayer = [5, 7, 8, 10, 11, 12, 13, 14, 15, 17, 18, 20];
+
 // const removeEntityListeners = (element, id) => {
 //     const newElement = element.cloneNode(true);
 //     element.parentNode.replaceChild(newElement, element);   
 //     entitiesNode[id] = newElement; 
 // }
+
+const cloneObject = (obj) => {
+    if (obj === null || typeof obj !== "object") {
+        return obj;
+      }
+    
+      // Check if the object is of type State
+      if (obj instanceof State) {
+        const entities = cloneObject(obj.entities);
+        const graph = obj.positions.map(position => cloneObject(position));
+        return new State(entities, graph);
+      }
+       let newObj;
+      if (obj instanceof Entity){
+        newObj = new Entity();
+      } else if (obj instanceof Position) {
+        newObj = new Position();
+      } else {
+        newObj = [];    
+      }
+    
+      for (const key in obj) {
+        newObj[key] = cloneObject(obj[key]);
+      }
+    
+      return newObj;
+}
 
 document.addEventListener("DOMContentLoaded", () =>{
     for (let i = 0; i < 21; i++) {
