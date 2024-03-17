@@ -4,7 +4,12 @@ class Position {
   getShortestPathTo (targetId, graph) {
     let allPaths = this.getPathsTo(targetId, graph);
     let pathLengths = allPaths.map((path) => path.length);
-    return allPaths[pathLengths.indexOf(Math.min(...pathLengths))];
+    let result = allPaths[pathLengths.indexOf(Math.min(...pathLengths))];
+    if (result){
+      return result; 
+    } else {
+      return [];
+    }
   }
 
   getPathsTo (targetId, graph) {
@@ -19,7 +24,7 @@ class Position {
       if (lastElement == targetId) {
         allPaths.push(currentPath) ;
       } else {
-        if (!visited.includes(lastElement)) {
+        if (!visited.includes(lastElement) && graph[lastElement].element == null) {
           visited.push(lastElement);
           for (const neighbor of graph[lastElement].neighbors) {
             let path = currentPath.concat(neighbor);
