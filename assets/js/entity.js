@@ -24,6 +24,9 @@ const removeElementListeners = (element, elements,id) => {
     elements[id] = newElement; 
 }
 
+let policeWinningConditions = [5, 10, 15, 20];
+let thiefWinningConditions = [0];
+
 // const removeEntityListeners = (element, id) => {
 //     const newElement = element.cloneNode(true);
 //     element.parentNode.replaceChild(newElement, element);   

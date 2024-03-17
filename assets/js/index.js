@@ -89,7 +89,12 @@ class Entity {
 
     actualPositioObj.element = null;
     finalPositionObj.element = this;
-    state.updateEntity(this);
+    // console.log("Is Winning :" + this.isWinning(state));
+    // if (this.isWinning(state)) {
+      
+    // } else {
+      state.updateEntity(this);
+    // }
   }
 
   getPosition(state) {
@@ -115,6 +120,29 @@ class Entity {
     entitiesNode[this.id].classList.remove("active");
     removeElementListeners(entitiesNode[this.id], entitiesNode, this.id);
   }
+
+  isWinning(state) {
+    if (this.type == "t") {
+      let position = this.getPosition(state);
+      if (thiefWinningConditions.includes(position.id)) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      let isWinning = false;
+      for (const conditionId of policeWinningConditions) {
+        let position = state.positions[conditionId];
+        let possibleWays = position.getPossibleWays(state.positions);
+        console.log(possibleWays);
+        if (possibleWays.length == 0 && position.element != null && position.element.type == "t") {
+          isWinning = true;
+          break;
+        }
+      }
+      return isWinning;
+    }
+  }
 }
 
 class State {
@@ -122,9 +150,29 @@ class State {
     this.entities = entities;
     this.positions = positions;
     this.currentPlayer = null;
+    this.mouvement = 0;
+  }
+
+  checkWinning (entity) {
+    if (entity.isWinning(this)) {
+      let message = "Thief wins";
+      if (entity.type != "t") message = "Polices win";
+      let winnerStatus = document.querySelector(".winner_status");
+      winnerStatus.innerHTML = message;
+      return true;
+    }
+    return false;
   }
 
   updateEntity(entity) {
+    if (this.mouvement > 1){
+      let bool = this.checkWinning(entity);
+      if (bool) {
+        Entity.disableEntities(this);
+        Position.disablePositions(this);
+        return;
+      }
+    }
     if (entity.type == "t") {
       this.currentPlayer = this.entities[1];
       Entity.policeListener(this);
@@ -133,6 +181,7 @@ class State {
       // this.currentPlayer.desactivate();
       this.currentPlayer = this.entities[0];
     }
+    this.mouvement++;
     this.currentPlayer.activate(this);
   }
 
