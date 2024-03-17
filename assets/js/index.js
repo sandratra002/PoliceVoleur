@@ -125,7 +125,7 @@ class Entity {
     });
   }
 
-  moveTo(actualPosition, finalPosition, state) {
+  moveTo(actualPosition, finalPosition, state, needUpdate = true) {
     let finalPositionObj = state.positions[finalPosition];
 
     let actualPositioObj = state.positions[actualPosition];
@@ -136,7 +136,9 @@ class Entity {
     // if (this.isWinning(state)) {
 
     // } else {
-    state.updateEntity(this);
+      if (needUpdate){
+        state.updateEntity(this);
+      }
     // }
   }
 
@@ -203,7 +205,13 @@ const getBestMove = (state = new State(), depth = 40, isMaximizing = true) => {
   if (isMaximizing) {
     bestPoint = -Infinity;
     for (const police of state.getPolices()) {
-      
+      let position = police.getPosition();
+      let moves = position.getPossibleWays();
+      for (const move of moves) {
+        let newState = cloneObject(state);
+        newState.currentPlayer = police;
+        police.moveTo(position.id, move, newState);
+      }
     }
   }
 };
