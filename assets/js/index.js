@@ -215,7 +215,7 @@ const getBestMove = (state = new State(), depth = 40, isMaximizing = true) => {
         if (tempPoint > bestPoint) {
           bestPoint = tempPoint;
           bestMove = {
-            policeId : police.id,
+            entityId : police.id,
             positionId : move
           };
         }
@@ -224,7 +224,24 @@ const getBestMove = (state = new State(), depth = 40, isMaximizing = true) => {
   } else {
     bestPoint = Infinity;
     let thief = state.getThief();
+    let position = thief.getPosition(state);
+    let possiblePath = position.getPossibleWays(state);
+    for (const path of possiblePath){
+      let newState = cloneObject(state);
+      newState.currentPlayer = thief;
+      thief.moveTo(position.id, path, state, false);
+      let tempPoint = getBestMove(newState, depth - 1, true);
+      if (tempPoint < bestPoint) {
+        bestPoint = tempPoint;
+        bestMove = {
+          entityId : thief.id,
+          positionId : path
+        }
+      }
+    }
   }
+
+  
 };
 
 class State {
