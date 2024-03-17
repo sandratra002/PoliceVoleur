@@ -21,7 +21,7 @@ const move = (element, destination)=> {
 const removeElementListeners = (element, elements,id) => {
     const newElement = element.cloneNode(true);
     element.parentNode.replaceChild(newElement, element);   
-    positions[id] = newElement; 
+    elements[id] = newElement; 
 }
 
 // const removeEntityListeners = (element, id) => {

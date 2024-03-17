@@ -1,4 +1,9 @@
 class Position {
+  static disablePositions(state) {
+    state.positions.forEach((position) => {
+      position.desactivate();
+    });
+  }
   //Get all possible way from this position
   getPossibleWays(graph) {
     return this.neighbors.filter((i) => {
@@ -12,8 +17,6 @@ class Position {
       position.desactivate();
     }
     let possibleWays = this.getPossibleWays(state.positions);
-    console.log("Possible way");
-    console.log(possibleWays);
     possibleWays.forEach((id) => {
       let temp = state.positions[id];
       temp.activate();
@@ -25,7 +28,6 @@ class Position {
         },
         { once: true }
       );
-
     });
   }
 
@@ -41,7 +43,7 @@ class Position {
 
   desactivate() {
     positions[this.id].classList.remove("active");
-    removeElementListeners(positions[this.id], positions,this.id);
+    removeElementListeners(positions[this.id], positions, this.id);
     // positions[this.id].removeEventListener("click", this.moveElement);
   }
 
@@ -60,21 +62,24 @@ class Entity {
 
   static policeListener(state) {
     for (let i = 0; i < state.entities.length; i++) {
-      if (state.entities[i] == "p") {
+      if (state.entities[i].type == "p") {
         let policeNode = entitiesNode[i];
-        console.log(policeNode);
         policeNode.addEventListener("click", () => {
-          Entity.disableEntities(state);
-          
+          // Entity.disableEntities(state);
+          state.entities.forEach((entity, index) => {
+            entitiesNode[index].classList.remove("active");
+          });
+
           state.entities[i].activate(state);
         });
       }
     }
-    // }
   }
 
-  static disableEntities (state) {
-    state.entities.forEach((entity) => {entity.desactivate();});
+  static disableEntities(state) {
+    state.entities.forEach((entity) => {
+      entity.desactivate();
+    });
   }
 
   moveTo(actualPosition, finalPosition, state) {
@@ -87,7 +92,7 @@ class Entity {
     state.updateEntity(this);
   }
 
-  getPosition (state) {
+  getPosition(state) {
     let result = new Position();
     for (const position of state.positions) {
       if (position.element != null && position.element.id == this.id) {
@@ -100,9 +105,7 @@ class Entity {
 
   activate(state) {
     let currentPosition = this.getPosition(state);
-    state.positions.forEach((position) => {
-      position.desactivate();
-    });
+    Position.disablePositions(state);
     currentPosition.activatePossibleWay(state);
     entitiesNode[this.id].classList.add("active");
     entitiesNode[this.id].click();
@@ -110,7 +113,7 @@ class Entity {
 
   desactivate() {
     entitiesNode[this.id].classList.remove("active");
-    removeElementListeners(entitiesNode[this.id], entitiesNode,this.id);
+    removeElementListeners(entitiesNode[this.id], entitiesNode, this.id);
   }
 }
 
@@ -127,6 +130,7 @@ class State {
       Entity.policeListener(this);
     } else {
       Entity.disableEntities(this);
+      // this.currentPlayer.desactivate();
       this.currentPlayer = this.entities[0];
     }
     this.currentPlayer.activate(this);
@@ -139,9 +143,11 @@ class State {
         let finalPositionNode = positions[position.id];
 
         move(entitiesNode[element.id], finalPositionNode);
+        position.desactivate();
       }
     }
     let player_type = document.querySelector(".player_type");
-    player_type.textContent = this.currentPlayer.type == "t" ? "Thief" : "Police";
+    player_type.textContent =
+      this.currentPlayer.type == "t" ? "Thief" : "Police";
   }
 }
