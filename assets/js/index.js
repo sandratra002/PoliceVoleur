@@ -216,8 +216,26 @@ class State {
       else return -15;
     } else {
       if (firstLayer.includes(position.id)) return -15;
-      else if (firstLayer.includes(position.id)) return -10;
+      else if (secondLayer.includes(position.id)) return -10;
       else return -5;
+    }
+  }
+  
+  calculatePolicePoint () {
+    if (this.currentPlayer.isWinning(this)) {
+      return 20;
+    }
+    let thief = this.getThief();
+    let position = thief.getPosition(this);
+    let shortestPath = position.getShortestPathTo(0, this.positions);
+    if (shortestPath.length > 0){
+      if (shortestPath.length > 5) return 15;
+      else if (shortestPath.length < 5 && shortestPath.length > 2) return 10;
+      else return 5;
+    } else {
+      if (firstLayer.includes(position.id)) return 5;
+      else if (secondLayer.includes(position.id)) return 10;
+      else return 15;
     }
   }
 
@@ -225,15 +243,7 @@ class State {
     if (this.currentPlayer.type == "t") {
       return this.calculateThiefPoint();
     } else {
-      if (this.currentPlayer.isWinning(this)) {
-        return 20;
-      }
-      let thief = this.getThief();
-      let thiefPosition = thief.getPosition(this);
-      let pathToCenter = thiefPosition.getPathsTo(0, this.positions);
-      if (pathToCenter) {
-        
-      }
+      return this.calculatePolicePoint();
     }
   }
 
