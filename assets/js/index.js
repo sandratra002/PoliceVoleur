@@ -1,7 +1,13 @@
 class Position {
   //AI Algo
   //TODO: getWaysTo(Destinatio) : Done, getShortestWayTo(destination)
-  getWaysTo (targetId, graph) {
+  getShortestPathTo (targetId, graph) {
+    let allPaths = this.getPathsTo(targetId, graph);
+    let pathLengths = allPaths.map((path) => path.length);
+    return allPaths[pathLengths.indexOf(Math.min(...pathLengths))];
+  }
+
+  getPathsTo (targetId, graph) {
     let queue = [[this.id]];
     let allPaths = [];
     let visited = [];

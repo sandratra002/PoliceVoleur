@@ -40,6 +40,6 @@ window.onload = () => {
 
     let state = new State(entities, graph);
     thief.activate(state);
-    console.log(graph[10].getWaysTo(0, state.positions));
+    console.log(graph[10].getShortestPathTo(0, state.positions));
     // Entity.policeListener(state);
 };
