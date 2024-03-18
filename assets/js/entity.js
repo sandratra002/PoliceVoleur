@@ -31,12 +31,6 @@ let firstLayer = [1, 2, 3, 4];
 let secondLayer = [6, 10, 16, 19];
 let lastLayer = [5, 7, 8, 10, 11, 12, 13, 14, 15, 17, 18, 20];
 
-// const removeEntityListeners = (element, id) => {
-//     const newElement = element.cloneNode(true);
-//     element.parentNode.replaceChild(newElement, element);   
-//     entitiesNode[id] = newElement; 
-// }
-
 document.addEventListener("DOMContentLoaded", () =>{
     for (let i = 0; i < 21; i++) {
         let position = document.getElementById(`position_${i}`);

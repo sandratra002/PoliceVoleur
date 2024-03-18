@@ -11,11 +11,6 @@ window.onload = () => {
         new Position(2, [0, 3, 4, 9]),
         new Position(3, [0, 1, 2, 16], police2),
         new Position(4, [0, 1, 2, 19], police3),
-        // new Position(0, [1, 2, 3, 4]),
-        // new Position(1, [0, 3, 4, 6]),
-        // new Position(2, [0, 3, 4, 9]),
-        // new Position(3, [0, 1, 2, 16]),
-        // new Position(4, [0, 1, 2, 19]),
 
         new Position(5, [7, 6, 8]),
         new Position(6, [7, 5, 8, 1]),

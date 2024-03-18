@@ -274,20 +274,22 @@ class State {
       }
     }
     if (entity.type == "t") {
-      // let bestMove = getBestMove(this, 10, true);
-      // let police = this.getPolices()[bestMove.entityId];
+      //With AI
+      // let bestMove = getBestMove(this, 5, true);
+      // console.log(bestMove);
+      // let police = this.getPolices()[bestMove.entityId - 1];
       // police.moveTo(police.getPosition(this).id, bestMove.positionId, this);
 
       //Without AI
       this.currentPlayer = this.entities[1];
       Entity.policeListener(this);
-      this.currentPlayer.activate(this);
+
     } else {
       Entity.disableEntities(this);
-      // this.currentPlayer.desactivate();
       this.currentPlayer = this.entities[0];
     }
     this.mouvement++;
+    this.currentPlayer.activate(this);
   }
 
   updateUI() {
@@ -306,7 +308,7 @@ class State {
   }
 }
 
-const getBestMove = (state = new State(),depth = 0, isMaximizing = true, visitedCase = []) => {
+const getBestMove = (state = new State(), depth = 0, isMaximizing = true, visitedCase = []) => {
   let point = state.calculatePoint();
   if (point == 20 || point == -20 || depth == 0) {
     return point;
@@ -322,22 +324,31 @@ const getBestMove = (state = new State(),depth = 0, isMaximizing = true, visited
       let moves = position.getPossibleWays(state.positions);
       for (const move of moves) {
         let newState = cloneObject(state);
-        newState.currentPlayer = police;
+        newState.currentPlayer = state.currentPlayer;
         police.moveTo(position.id, move, newState, false);
         // console.log(newState);
         if (!contains(visitedCase, newState)) {
           visitedCase.push(newState);
           let tempPoint = getBestMove(newState, depth - 1, false, visitedCase);
+          console.log("IsMaximizing :" + tempPoint);
           if (tempPoint > bestPoint) {
             bestPoint = tempPoint;
             bestMove = {
               entityId : police.id,
-              positionId : move
+              positionId : move,
+              point : bestPoint
             };
-          }
+          } else if (typeof tempPoint == "object" && tempPoint.point > bestPoint) {
+            bestPoint = tempPoint.point;
+            bestMove = tempPoint;
+          } 
+          // else if (typeof tempPoint == "object") {
+          //   bestMove = tempPoint;
+          // }
         }
       }
     }
+    return bestMove;
   } else {
     bestPoint = Infinity;
     let thief = state.getThief();
@@ -345,21 +356,27 @@ const getBestMove = (state = new State(),depth = 0, isMaximizing = true, visited
     let possiblePath = position.getPossibleWays(state.positions);
     for (const path of possiblePath){
       let newState = cloneObject(state);
-      newState.currentPlayer = thief;
+      newState.currentPlayer = state.currentPlayer;
       thief.moveTo(position.id, path, state, false);
       if (!contains(visitedCase, newState)) {
         visitedCase.push(newState);
         let tempPoint = getBestMove(newState, depth - 1, true, visitedCase);
+        console.log("!Is Maximizing : " + tempPoint);
         if (tempPoint < bestPoint) {
           bestPoint = tempPoint;
           bestMove = {
             entityId : thief.id,
-            positionId : path
+            positionId : path,
+            point : bestPoint
           }
-        }
+        } else if (typeof tempPoint == "object" && tempPoint.point > bestPoint) {
+          bestPoint = tempPoint.point;
+          bestMove = tempPoint;
+        } 
       }
     }
+    return bestMove;
   }
 
-  return isMaximizing ? bestMove : bestPoint;
+  // return isMaximizing ? bestPoint : bestMove;
 };
